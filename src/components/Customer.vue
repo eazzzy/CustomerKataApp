@@ -6,7 +6,7 @@
             <input type="text" class="form-control" placeholder="Enter key word  ..." v-model="search" v-on:keyup="getfilteredData">
           </div>
         </div>
-        <p class="mt-3" align="right">Page: {{ currentPage }} of {{ rows/perPage }}</p>
+        <p class="mt-3" align="right">Page: {{ currentPage }} of {{ Math.ceil(rows/perPage) }}</p>
        <div>
           <b-table id="cust-table"
             striped
