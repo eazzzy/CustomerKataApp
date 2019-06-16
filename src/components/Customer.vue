@@ -1,8 +1,8 @@
 <template>
     <div>
-        <h4>Customers</h4>
+        <h4>Acme Contact Management</h4>
          <div class="form-row">
-          <div class="col-10">
+          <div style="width:100%">
             <input type="text" class="form-control" placeholder="Enter key word  ..." v-model="search" v-on:keyup="getDataFromApi">
           </div>
         </div>
@@ -12,7 +12,8 @@
             striped
             :items="apiData"
             :per-page="perPage"
-            :current-page="currentPage">
+            :current-page="currentPage"
+            small>
           </b-table>
         </div>
         <div>
@@ -49,24 +50,19 @@ export default {
   },
   methods:{
     getDataFromApi: function () {
+      let endpoint = 'http://localhost:51770/api/customer'
+
       if (this.search !== '') {
-        fetch('http://localhost:51770/api/customer/' + this.search, { 
-              method: 'get' 
-            })
-            .then((response) => response.json())
-            .then((jsonData) => {
-              this.apiData = jsonData
-            })
+        endpoint += '/' + this.search
       }
-      else {
-        fetch('http://localhost:51770/api/customer', { 
-              method: 'get' 
-            })
-            .then((response) => response.json())
-            .then((jsonData) => {
-              this.apiData = jsonData
-            })
-      }
+
+      fetch(endpoint, { 
+            method: 'get' 
+          })
+          .then((response) => response.json())
+          .then((jsonData) => {
+            this.apiData = jsonData
+          })
     } 
   },
   mounted: function() {
