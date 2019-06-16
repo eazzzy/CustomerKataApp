@@ -1,11 +1,16 @@
 <template>
     <div>
-        <h3>Customers</h3>
+        <h4>Customers</h4>
+         <div class="form-row">
+          <div class="col-10">
+            <input type="text" class="form-control" placeholder="Enter key word  ..." v-model="search" v-on:keyup="getfilteredData">
+          </div>
+        </div>
         <p class="mt-3" align="right">Page: {{ currentPage }} of {{ rows/perPage }}</p>
        <div>
           <b-table id="cust-table"
             striped
-            :items="apiData"
+            :items="filteredData"
             :per-page="perPage"
             :current-page="currentPage">
           </b-table>
@@ -31,13 +36,26 @@ export default {
   data () {
     return {
       apiData: [],
+      filteredData: [],
       perPage: 10,
-      currentPage: 1
+      currentPage: 1,
+      search: ''
     }
   },
   computed: {
     rows () {
-      return this.apiData.length
+      return this.filteredData.length
+    }
+  },
+  methods:{
+    getfilteredData: function () {
+      this.filteredData = this.apiData
+      let filteredDataBySearch = []
+      // then filter according to keyword, for now this only affects the name attribute of each data
+      if (this.search !== '') {
+        filteredDataBySearch = this.filteredData.filter(obj => obj.firstName.toLowerCase().indexOf(this.search.toLowerCase()) >= 0)      
+        this.filteredData = filteredDataBySearch
+      }
     }
   },
   mounted: function() {
