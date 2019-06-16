@@ -1,6 +1,10 @@
 <template>
     <div>
         <h1>Customers</h1>
+        <b-table id="my-table"
+          striped
+          :items="apiData">
+        </b-table>
     </div>
 </template>
 
