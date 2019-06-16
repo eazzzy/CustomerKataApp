@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h4>Acme Contact Management</h4>
+        <h2>Acme Contact Management</h2>
          <div class="form-row">
           <div style="width:100%">
             <input type="text" class="form-control" placeholder="Enter key word  ..." v-model="search" v-on:keyup="getDataFromApi">
